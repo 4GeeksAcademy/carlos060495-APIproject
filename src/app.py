@@ -16,9 +16,10 @@ spotify = spotipy.Spotify(auth_manager=auth_manager)
 url_artista = "https://open.spotify.com/intl-es/artist/3fMbdgg4jU18AjLCKBhRSm"
 
 top_tracks = spotify.artist_top_tracks("3fMbdgg4jU18AjLCKBhRSm")
+print("==========TOP 10==========")
 for track in top_tracks['tracks'][:10]:
     print('track    : ' + track['name'])
-
+print()
 df_tracks = pd.json_normalize(top_tracks['tracks'])
 df_musica = pd.DataFrame(df_tracks)
 df_limpio = df_tracks[[
@@ -30,11 +31,11 @@ df_limpio = df_tracks[[
     'album.name': 'album'
 })
 print(df_limpio)
+print()
 
 df_limpio_ordenado = df_limpio.sort_values(by='popularity', ascending=True)
-
 top_3_menos_popular = df_limpio_ordenado.head(3)
-
+print("----------TOP 3 MENOS ESCUCHADAS----------")
 print(top_3_menos_popular)
 
 plt.figure(figsize=(8, 5))
